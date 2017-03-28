@@ -1,7 +1,6 @@
 # build docker instance
 docker-machine -D create --driver amazonec2 \
 --amazonec2-instance-type c4.2xlarge \
---amazonec2-ami ami-2c57433b \
 --amazonec2-device-name "/dev/sda1" \
 --amazonec2-root-size "60" \
 --amazonec2-volume-type "gp2" \
@@ -25,6 +24,10 @@ docker-machine inspect awsopt
 
 # SSH into the machine
 docker-machine ssh awsopt
+
+# update the OS
+sudo apt install --upgrade apt
+sudo do-release-upgrade -y
 
 # bc the daemon doesn't start sometimes
 sudo nohup docker daemon -H tcp://0.0.0.0:2375 -H unix:///var/run/docker.sock &
