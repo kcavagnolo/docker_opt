@@ -1,12 +1,11 @@
 # base image
-FROM nvidia/cuda:8.0-cudnn5-devel
+FROM phusion/baseimage:latest
 
 # maintainer
 MAINTAINER Ken Cavagnolo <ken@kcavagnolo.com>
 
 # set env
 ENV LANG=C.UTF-8 LC_ALL=C.UTF-8
-ENV LD_LIBRARY_PATH /usr/local/cuda/lib64/:$LD_LIBRARY_PATH
 COPY jupyter_notebook_config.py /root/.jupyter/
 COPY run.sh /
 
@@ -49,8 +48,7 @@ WORKDIR /usr/src/app
 ONBUILD COPY requirements.txt /usr/src/app/
 ONBUILD RUN pip install --no-cache-dir -r requirements.txt
 
-# TensorBoard, Jupyter, Flask
-EXPOSE 6006
+# Jupyter, Flask
 EXPOSE 8888
 EXPOSE 4567
 
