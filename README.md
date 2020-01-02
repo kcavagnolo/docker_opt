@@ -6,7 +6,17 @@ This repo contains code and instructions for launching an AWS EC2 instance using
 
 ## Setup
 
-The setup steps below assume that the environment variables `AWS_VPC_ID`, `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY` are set on the local machine.
+### Local Environment
+
+The setup steps below assume that the following environment variables are set on the local machine:
+
+* `AWS_VPC_ID`
+* `AWS_ACCESS_KEY_ID`
+* ``AWS_SECRET_ACCESS_KEY`
+* `DOCKER_UNAME`
+* `DOCKER_PSWD`
+
+### AWS Instance
 
 Create an instance using `docker-machine`:
 
@@ -104,7 +114,7 @@ docker run \
 
 ### Build Docker Image
 
-There is a webhook from GitHub to Docker Hub, so when a `push` onto `origin master` occurs, an automatic build is kicked-off. The below is for versioning if desired:
+There is a webhook from GitHub to Docker Hub, so when a `push` onto `origin master` occurs, an automatic build is kicked-off. The below is for versioning if desired. I prefer to [sign images](https://docs.docker.com/engine/security/trust/content_trust/) for my own sanity since these images will load to AWS. Use the below in the build session:
 
 ```bash
 cd ~/docker/docker_opt
@@ -113,7 +123,8 @@ docker build --build-arg VCS_REF=$DOCKER_OPT_VER \
     --build-arg BUILD_DATE=`date -u +”%Y-%m-%dT%H:%M:%SZ”` \
     -t kcavagnolo/docker_opt:$DOCKER_OPT_VER \
     -f Dockerfile .
-docker login -u $DOCKER_REG_UNAME -p $DOCKER_REG_PSWD
+docker login -u $DOCKER_UNAME -p $DOCKER_PSWD
+export DOCKER_CONTENT_TRUST=1
 docker push kcavagnolo/docker_opt:$DOCKER_OPT_VER
 ```
 
