@@ -12,7 +12,7 @@ The setup steps below assume that the following environment variables are set on
 
 * `AWS_VPC_ID`
 * `AWS_ACCESS_KEY_ID`
-* ``AWS_SECRET_ACCESS_KEY`
+* `AWS_SECRET_ACCESS_KEY`
 * `DOCKER_UNAME`
 * `DOCKER_PSWD`
 
