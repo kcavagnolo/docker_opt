@@ -7,11 +7,16 @@ import datetime as dt
 
 def main():
     try:
-        subprocess.check_output(['safety check --bare -r requirements.txt'], shell=True, stderr=subprocess.STDOUT)
+        # avoid using shell=True
+        # https://security.openstack.org/guidelines/dg_use-subprocess-securely.html
+        args = ['safety', 'check', '--bare', '-r', 'requirements.txt']
+        subprocess.check_output(args, shell=False, stderr=subprocess.STDOUT)
     except Exception as e:
+        # safety check doesn't exit clean
         pkgs = str(e.output.decode("utf-8")).split()
     for pkg in pkgs:
-        subprocess.call("pip install --upgrade " + pkg, shell=True)
+        args = ['pip', 'install', '--upgrade', pkg]
+        subprocess.call(args, shell=False, stderr=subprocess.STDOUT)
 
 if __name__ == '__main__':
     # setup file logger
