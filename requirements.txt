@@ -6,7 +6,7 @@ astroid==2.3.3
 attrs==19.3.0
 aws-shell==0.2.1
 awscli==1.16.306
-Babel==2.7.0
+Babel==2.9.1
 backcall==0.1.0
 backports-abc==0.5
 backports.functools-lru-cache==1.6.1
