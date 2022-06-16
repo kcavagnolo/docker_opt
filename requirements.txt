@@ -111,7 +111,7 @@ multipledispatch==0.6.0
 munch==2.5.0
 nbconvert==5.6.1
 nbformat==4.4.0
-notebook==6.0.2
+notebook==6.4.12
 numpy==1.18.0
 numpydoc==0.9.1
 packaging==19.2
